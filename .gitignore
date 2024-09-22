@@ -1,0 +1,7 @@
+# files
+
+# dirs
+.vscode
+*/.vscode
+
+*.json
