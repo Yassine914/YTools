@@ -1,0 +1,48 @@
+# PROJECT: YMakeTest
+# ^ this project comment is neccessary
+
+[YMakeTest]
+project.name = "YMakeTest"
+
+lang = ["C++", "C"] # could be an array.
+
+cpp.std = 14 # must be specified if lang includes C++
+cpp.compiler = "clang++"
+
+c.std = 11 # must be specified if lang include C
+c.compiler = "gcc"
+
+build.type = "desktop" # static lib, or shared lib, etc...
+build.dir = "./bin/"
+
+# dir path is considered relative if './' is specified, otherwise it is absolute.
+# macros like $(VK_VERSION) are specified in a .env file.
+
+src = "./src" # source directory.
+env = "./.env"
+
+include.directories = [
+    "./src",
+    "./include",
+    "C://Tools/VulkanSDK/$(VK_VERSION)/Include"
+]
+
+
+[YMakeTest.libs]
+# lib."Lib Name" = "Lib/Path"
+lib."Vulkan" = "$(VK_PATH)/"
+lib."GLFW" = "./lib/GLFW/"
+
+
+[YMakeTest.compiler]
+defines = [
+    "YDEBUG"
+]
+
+compiler.flags = [
+    "-Wall",
+    "-Wargs",
+    "-g"
+]
+
+# PROJECT: YMakeTest2

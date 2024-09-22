@@ -1,0 +1,45 @@
+        
+// TODO: change back to YMake.toml
+    //________________ test/
+
+    for(auto token : tokens)
+    {
+
+
+auto config = toml::parse_file(filepath);
+
+ 
+
+#include <tom <toml++/toml.h>
+T(const char *)_________
+
+    for(auto &&[key, val] : config)
+    {
+        LINFO("KEY: ", key, ", VAL: ", val, "\n");
+    }
+
+    config.for_each([](auto &key, auto &val){
+    config.for_each([](auto &key, auto &val){
+        LINFO("VAL: ", val, "\n");
+    });
+
+    
+/*
+    toml::table tbl = toml::parse(source);
+
+    // different ways of directly querying data
+    std::optional<std::string_view> str1 = tbl["str"].value<std::string_view>();
+    std::optional<std::string>      str2 = tbl["str"].value<std::string>();
+    std::string_view                str3 = tbl["str"].value_or(""sv);
+    std::string&                    str4 = tbl["str"].ref<std::string>(); // ~~dangerous~~
+
+
+*/
+
+   toml::table tbl = config.as_table();
+
+    auto projName = tbl["project.name"].value();
+}       .c_str()}
+    
+
+    p
