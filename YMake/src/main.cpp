@@ -6,16 +6,26 @@
 // TODO: change back to YMake.toml
 #define DEFAULT_FILE "test/YMake.toml"
 
-std::vector<std::string> GetProjectNames(const char *filepath)
+struct Project
 {
+    std::string name;
+    u32 lineNum; // the start of the config file.
+
+    Project() {}
+    Project(std::string name, u32 lineNum) : name{name}, lineNum{lineNum} {}
+};
+
+std::vector<Project> GetProjects(const char *filepath)
+{
+    std::vector<Project> projects;
+
     std::ifstream file(filepath, std::ios::in);
 
+    u32 lineNo = 0;
     std::string line;
-
-    std::vector<std::string> names;
-
     while(std::getline(file, line))
     {
+        lineNo++;
         std::stringstream ss{line};
         std::string word;
 
@@ -26,18 +36,19 @@ std::vector<std::string> GetProjectNames(const char *filepath)
             if(word == "PROJECT:")
             {
                 ss >> word;
-                names.push_back(word);
+                projects.push_back(Project(word, lineNo));
             }
         }
     }
 
     file.close();
-    return names;
+    return projects;
 }
 
+// TODO: need to setup cmd arguments properly
 int main(int argc, char **argv)
 {
-    LINFO(false, "YMake v0.01\n");
+    LLOG(BLUE_TEXT("[INFO]\t"), "YMake v0.0.1\n");
 
     //_____________ CONFIG FILE OPENING _____________
     std::string filepath = DEFAULT_FILE;
@@ -45,23 +56,23 @@ int main(int argc, char **argv)
     std::ifstream file(filepath, std::ios::in);
     if(!file.is_open())
     {
-        if(argc < 2)
-        {
-            LERROR("The File ", DEFAULT_FILE, " was not found.\n");
-            LERROR("You must create the file, or specify the path of a .toml file as the 1st argument.");
-        }
-        else
-        {
-            filepath = argv[1];
-        }
+        LERROR("The File ", DEFAULT_FILE, " was not found.\n");
+        LERROR("You must create the file: \'", DEFAULT_FILE, "\'");
     }
 
-    std::vector<std::string> projects = GetProjectNames(filepath.c_str());
+    std::vector<Project> projects = GetProjects(filepath.c_str());
+
+    if(projects.size() == 0)
+    {
+        LERROR("No Projects found in ", DEFAULT_FILE, ".\n");
+        LERROR("\tmust specify at least one \'# PROJECT: project_name\' comment in the file.\n");
+        return 2;
+    }
 
     LINFO(false, "projects to be compiled: \n");
-    for(auto proj : projects)
+    for(Project proj : projects)
     {
-        LINFO(false, "proj: ", proj, "\n");
+        LINFO(false, "proj: ", proj.name, ".\tline: ", proj.lineNum, "\n");
     }
 
     auto config = toml::parse_file(filepath);
