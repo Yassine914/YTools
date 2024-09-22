@@ -1,0 +1,9 @@
+[INFO 11:43:28]	DOOM ENGINE v0
+[INFO 11:43:28]	this will not work.
+[FATAL 2\main.cpp:15 11:43:28]	AAAAAAAAAAAAAAAAAAA|
+[DEBUG 2\main.cpp:16 11:43:28]	debug debug
+[WARN 2\main.cpp:18 11:43:28]	sup mo fo again
+[INFO 11:43:28]	info info info.
+[INFO 2\main.cpp:22 11:43:28]	this will show up
+[DEBUG 2\main.cpp:23 11:43:28]	this will not show up
+[FATAL 2\main.cpp:24 11:43:28]	1this will not show up either
