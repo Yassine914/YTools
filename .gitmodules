@@ -1,3 +1,6 @@
 [submodule "mini-logger-cpp"]
 	path = c_cpp/mini-logger-cpp
 	url = https://github.com/Yassine914/mini-logger-cpp.git
+[submodule "YMake/lib/tomlplusplus"]
+	path = YMake/lib/tomlplusplus
+	url = https://github.com/marzer/tomlplusplus.git
