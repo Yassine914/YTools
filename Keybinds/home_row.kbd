@@ -1,0 +1,112 @@
+;; global configuration options
+(defcfg
+  process-unmapped-keys yes
+  log-layer-changes no
+)
+
+;; keys that will be modified
+(defsrc
+  esc
+  grv
+  caps
+  q w e r t y u i o p
+  a s d f g h j k l scln
+  z x c v b n m , . /
+)
+
+(defvar
+  tap-time 150
+  hold-time 200
+)
+
+;; home row mods -> f, j
+(defalias base (layer-switch base))
+(defalias hrr  (layer-while-held home_row_right))
+(defalias hrl  (layer-while-held home_row_left))
+(defalias hrrs (layer-while-held home_row_right_shifted))
+(defalias hrls (layer-while-held home_row_left_shifted))
+(defalias hrrn (layer-while-held home_row_right_normal))
+(defalias hrln (layer-while-held home_row_left_normal))
+
+(defalias 
+  a    (tap-hold $tap-time $hold-time a @hrrn)
+  s    (tap-hold $tap-time $hold-time s @hrrs)
+  d    (tap-hold $tap-time $hold-time d lsft)
+  f    (tap-hold $tap-time $hold-time f @hrr)
+  
+  j    (tap-hold $tap-time $hold-time j @hrl)
+  k    (tap-hold $tap-time $hold-time k rsft)
+  l    (tap-hold $tap-time $hold-time l @hrls)
+  scln (tap-hold $tap-time $hold-time scln @hrln)
+)
+
+;; base layer
+(deflayer base
+  caps
+  grv
+  esc
+  q w e r t y u i o p
+  @a @s @d @f g h @j @k @l @scln
+  z x c v b n m , . /
+)
+
+;; when the f key is held
+(deflayer home_row_right
+  _
+  _
+  _
+  _ _ _ _ _ 6   7   8   9   0
+  _ _ _ _ _ S-6 S-7 S-8 S-9 S-0
+  _ _ _ _ _ [   ]  {   }   \
+)
+
+;; when the j key is held
+(deflayer home_row_left
+  _
+  _
+  _
+  1   2    3    4    5   _  _  _  _  _
+  S-1 S-2  S-3  S-4 S-5  _  _  _  _  _
+  _   _    _    _    _   _  _  _  _  _
+)
+
+;; when the s key is held
+(deflayer home_row_right_shifted
+  _
+  _
+  _
+  _ _ _ _ _ _    {    }  del   bspc
+  _ _ _ _ _ left down up right _
+  _ _ _ _ _ _ _ _ _ _ 
+)
+
+;; when the l key is held
+(deflayer home_row_left_shifted
+  _
+  _
+  _
+  _ _ _ _ _ _ _ _ _ _
+  S-, S-. S-{ S-} = _ _ _ _ _
+  _ _ _ _ _ _ _ _ _ _ 
+)
+
+;; when key ; is held
+(deflayer home_row_left_normal
+  _
+  _
+  _
+  _ _ _ _ _ _ _ _ _ _
+  a s d f _ _ @j @k @l @scln
+  _ _ _ _ _ _ _ _ _ _ 
+)
+
+
+;; when key a is held
+(deflayer home_row_right_normal
+  _
+  _
+  _
+  _ _ _ _ _ _ _ _ _ _
+  @a @s @d @f _ _  j k l scln
+  _ _ _ _ _ _ _ _ _ _ 
+)
